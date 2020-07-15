@@ -1,0 +1,35 @@
+<div class="container mt-3" *ngIf="post">
+  <mat-card class="c-post">
+    <mat-card-title>
+      {{post.title}}
+    </mat-card-title>
+    <mat-card-content class="mt-3">
+      <p>{{post.body}}</p>
+
+      <mat-hint [style.cursor]="'pointer'" (click)="getComments(post.id)">comments</mat-hint>
+
+      <ng-container *ngIf="comments">
+        <input matInput
+               type="text"
+               class="w-100"
+               placeholder="search.."
+               [(ngModel)]="searchComment"
+               (input)="searchComments()">
+
+        <div class="c-comments" *ngFor="let filteredComment of filteredComments">
+          <mat-hint>{{filteredComment.email}}</mat-hint>
+          <p class="mat-body-1"><span class=mat-body-2>{{filteredComment.name}} : </span>{{filteredComment.body}}</p>
+        </div>
+        <ng-container *ngIf="!filteredComments">
+          <div class="c-comments" *ngFor="let comment of comments" >
+            <mat-hint>{{comment.email}}</mat-hint>
+            <p class="mat-body-1"><span class=mat-body-2>{{comment.name}} : </span>{{comment.body}}</p>
+          </div>
+        </ng-container>
+
+
+      </ng-container>
+    </mat-card-content>
+  </mat-card>
+</div>
+
